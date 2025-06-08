@@ -57,8 +57,64 @@ class StudentServiceTest {
 
         assertNull(actual, "this user exist");
 
+    }
+
+    @Test
+    public void getStudentByIdTestUsingAssertNotNull() {
+        StudentService studentService = new StudentService();
+
+
+        Student student = new Student(1, "Andrew");
+
+        studentService.addStudent(student);
+
+        Student actual = studentService.getStudentById(1);
+
+        assertNotNull(actual, "this user doesn't exist");
 
     }
+
+
+    @Test
+    public void getStudentByIdTestUsingAssertEquals() {
+        StudentService studentService = new StudentService();
+
+        Student student = new Student(1, "Andrew");
+
+        studentService.addStudent(student);
+
+        Student actual = studentService.getStudentById(1);
+
+        assertEquals(1, actual.getId());
+        assertEquals("Andrew", actual.getName());
+        assertEquals(student, actual);
+
+    }
+
+    @Test
+    public void getStudentByNameTestUsingAssertThrows() {
+        StudentService studentService = new StudentService();
+        Student student = new Student(1, "Andrew");
+        studentService.addStudent(student);
+
+        //assertThrows(StudentNotFoundException.class, () -> studentService.getStudentByName("John"));
+
+        /*assertThrows(StudentNotFoundException.class,
+                () -> studentService.getStudentByName("Andrew"),
+                "StudentNotFoundException should be true but it wasn't");
+*/
+
+        assertThrows(StudentNotFoundException.class,
+                () -> studentService.getStudentByName("Joshua"),
+                () -> "StudentNotFoundException should be true but it wasn't");
+
+
+    }
+
+
+
+
+
 
 
 
